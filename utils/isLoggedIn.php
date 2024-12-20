@@ -1,12 +1,11 @@
 <?php
 $isLoggedIn = isset($_SESSION["isLoggedIn"]);
 if ($isLoggedIn) {
-    $role = $_SESSION["role"];
+    $isAdmin = $_SESSION["isAdmin"];
 
-    match($role) {
-        "admin" => header("Location: " . $rootDirectory . "/dashboard/admin/index.php"),
-        "lembaga" => header("Location: " . $rootDirectory . "/dashboard/ketua/index.php"),
-        "donatur" => header("Location: " . $rootDirectory . "/home/index.php"),
-        default => header("Location: " . $rootDirectory . "/auth/login.php")
-    };
+    if ($isAdmin) {
+        header("Location: " . $rootDirectory . "/dashboard/admin/index.php");
+        exit;
+    }
+    header("Location: " . $rootDirectory . "/home/index.php");
 }
