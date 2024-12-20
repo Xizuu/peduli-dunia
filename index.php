@@ -5,7 +5,7 @@ $isLoggedIn = isset($_SESSION['isLoggedIn']);
 $rootDirectory = "/peduli-dunia";
 
 if (!$isLoggedIn) {
-    header("Location: " . $rootDirectory . "/auth/login.php");
+    header("Location: " . $rootDirectory . "/auth");
     exit;
 }
 
