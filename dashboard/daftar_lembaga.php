@@ -35,20 +35,23 @@ $data = $conn->query($query);
 <body>
     <div id="template">
         <div id="header">
-            <h1>PEDULI DUNIA</h1>
-            <p>Peduli dengan sesama</p>
-            <!-- <p>Kamu login sebagai: <?= htmlspecialchars($_SESSION["role"]) ?></p> -->
+            <h1>PEDULI DUNIA DASHBOARD</h1>
+            <!-- <p>Kamu login sebagai: <?= $_SESSION["role"] ?></p> -->
         </div>
         <div id="menu">
             <ul>
                 <li><a href="<?= $rootDirectory ?>">Beranda</a></li>
+                <li><a href="daftar_lembaga.php">Daftar Lembaga</a></li>
                 <li><a href="<?= $rootDirectory ?>/logout.php">Logout</a></li>
             </ul>
         </div>
 
         <div id="content-wrapper">
             <div id="content">
-            <table>
+                <div class="action-buttons">
+                    <a class="add" href="action/tambah_lembaga.php">Tambah Lembaga</a>
+                </div>
+                <table>
                     <thead>
                         <tr>
                             <th>Nama Lembaga</th>
@@ -65,7 +68,8 @@ $data = $conn->query($query);
                                     <td><?= $row['kategori'] ?></td>
                                     <td><?= $row['deskripsi'] ?>
                                     <td>
-                                        <a class="edit" href="action/donasi.php?id=<?= $row["id"] ?>">Kirim Donasi</a>
+                                        <a class="edit" href="action/edit_lembaga.php?id=<?= $row["id"] ?>">Edit</a>
+                                        <a class="delete" href="action/hapus_lembaga.php?id=<?= $row["id"] ?>">Hapus</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -76,11 +80,25 @@ $data = $conn->query($query);
                         <?php endif; ?>
                     </tbody>
                 </table>
+
+                <div class="pagination">
+                    <?php if ($currentPage > 1): ?>
+                        <a href="?page=1">First</a>
+                        <a href="?page=<?= $currentPage - 1 ?>">Previous</a>
+                    <?php endif; ?>
+                    <?php if ($currentPage < $totalPages): ?>
+                        <a href="?page=<?= $currentPage + 1 ?>">Next</a>
+                        <a href="?page=<?= $totalPages ?>">Last</a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-        <div id="footer">Copyright &copy; <?= date('Y') ?>. All rights reserved.</div>
+        <div id="footer">Copyright &copy; <?= date('Y') ?>. All rights reserved</div>
     </div>
 
-    <?php $conn->close(); ?>
+    <?php
+
+    $conn->close();
+    ?>
 </body>
-</html> 
+</html>

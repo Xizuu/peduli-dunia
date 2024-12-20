@@ -28,6 +28,7 @@ if (isset($_POST["submit"])) {
     if ($result->num_rows > 0) {
         $rows = mysqli_fetch_assoc($result);
         $_SESSION["isLoggedIn"] = true;
+        $_SESSION["session_id"] = $rows["id"];
         $_SESSION["nama"] = $nama;
 
         echo "<script>alert('Login berhasil!')</script>";
